@@ -7,7 +7,7 @@ def main():
 
     
     brac_bank = Bank()
-    admin = Admin("Muktadir", "muktadir@gmail.com", "Dhaka", 583274)
+    admin = Admin("Muktadir", "m@gmail.com", "Dhaka", 583274)
 
 
     
