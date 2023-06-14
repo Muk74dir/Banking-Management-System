@@ -1,6 +1,6 @@
 from datetime import datetime as dt
-
-class User:
+from Bank import Bank
+class User(Bank):
     def __init__(self, name, email, address, phone) -> None:
         self.name = name 
         self.email = email
@@ -8,7 +8,10 @@ class User:
         self.phone = phone
         self.balance = 0
         self.activity_log = []
+        self.type = "User"
 
+    def create_account(self, user, initail_deposit):
+        return super().create_account(user, initail_deposit)
 
     def deposit(self, amount):
         self.balance += amount

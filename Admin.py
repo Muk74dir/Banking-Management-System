@@ -5,6 +5,9 @@ from User import User
 class Admin(User, Bank):
     def __init__(self, name, email, address, phone) -> None:
         super().__init__(name, email, address, phone)
+        self.balance = 0
+        self.type = "Admin"
+        self.activity_log = []
 
     def create_account(self, user, initail_deposit):
         return super().create_account(user, initail_deposit)
@@ -21,5 +24,6 @@ class Admin(User, Bank):
             print(f"Loan Feature is On {dt.now}")
         else:
             super().loan_enabled = False
-            print(f"Loan Feature is Off {dt.now}")
-        
+            print(f"Loan Feature is ff {dt.now}")
+
+    
