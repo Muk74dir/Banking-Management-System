@@ -1,26 +1,36 @@
 from datetime import datetime as dt
 from Bank import Bank
-class User(Bank):
-    def __init__(self, name, email, address, phone) -> None:
+
+class User:
+    def __init__(self, name) -> None:
         self.name = name 
-        self.email = email
-        self.address = address
-        self.phone = phone
         self.balance = 0
         self.activity_log = []
         self.type = "User"
 
-    def create_account(self, user, initail_deposit):
-        return super().create_account(user, initail_deposit)
+    def create_account(self, bank, email, phone, address):
+        self.email = email
+        self.phone = phone
+        self.address = address
 
-    def deposit(self, amount):
+        if self.type == "User":
+            print("######----User Account Created---#####\n")
+            bank.users.append(self.name)
+        else:
+            print("######----Admin Account Created---#####\n")
+            bank.admins.append(self.name)
+        self.activity_log.append(f'Account Created at {dt.now()}')
+
+    def deposit(self, bank, amount):
         self.balance += amount
-        self.activity_log.append(f'Credited +{amount} at {dt.now()}')
+        self.activity_log.append(f'Credited +{amount} in {bank.name} at {dt.now()}')
+        bank.get_balance += amount
         
-    def withdraw(self, amount):
+    def withdraw(self, bank, amount):
         if self.balance >= amount:
             self.balance -= amount
-            self.activity_log.append(f'Debited -{amount} at {dt.now()}')
+            bank.get_balance -= amount
+            self.activity_log.append(f'Debited -{amount} from {bank.name} at {dt.now()}')
             print("Withdraw Successful.")
         else:
             print("Not Enough Money Available to Withdraw.")
@@ -29,14 +39,18 @@ class User(Bank):
     def check_balance(self):
         print(f'Your Balance is : {self.balance}')
 
-    def transfer_balance(self, to_user, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            to_user.balance += amount
-            self.activity_log.append(f'{amount}BDT Transfered from {self.name} to {to_user.name} at {dt.now()}')
-            print("Transfer Successful.")
+    def transfer_balance(self, bank, to_user, amount):
+        if (self.name in bank.users) and (to_user.name in bank.users):
+            if self.balance >= amount:
+                self.balance -= amount
+                to_user.balance += amount
+                self.activity_log.append(f'{amount}BDT Transfered from {self.name} to {to_user.name} at {dt.now()}')
+                print("Transfer Successful.")
+            else:
+                print("Not Enough Money Available to Transfer.")
         else:
-            print("Not Enough Money Available to Transfer.")
+            print("Transfer Failed")
+            print('Reason : User has no account in this bank')
 
 
     def transaction_history(self):

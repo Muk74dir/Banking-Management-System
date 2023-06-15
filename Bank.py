@@ -1,17 +1,24 @@
 from datetime import datetime as dt
 
 class Bank:
-    def __init__(self) -> None:
+    def __init__(self, name) -> None:
+        self.name = name
         self.__balance = 0
         self.__loan = 0
         self.users = []
         self.admins = []
         self.loan_enabled = True
 
+        print(f"##########---------->WELCOME TO {self.name}<---------#######\n\n\n")
+
 
     @property
     def get_balance(self):
         return self.__balance
+    
+    @get_balance.setter
+    def get_balance(self, amount):
+        self.__balance = amount
     
 
     @property
@@ -27,15 +34,6 @@ class Bank:
     
     def total_loan(self):
         return self.get_loan
-
-    def create_account(self, user):
-        user.activity_log.append(f'Account Created at {dt.now()}')
-        if user.type == "User":
-            self.users.append(user)
-            print("######----User Account Created---#####\n")
-        else:
-            self.admins.append(user)
-            print("######----Admin Account Created---#####\n")
 
     def account_details(self, user):
         print("<----------Account Details-------->")

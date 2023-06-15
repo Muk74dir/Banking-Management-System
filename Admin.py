@@ -3,14 +3,15 @@ from Bank import Bank
 from User import User
 
 class Admin(User, Bank):
-    def __init__(self, name, email, address, phone) -> None:
-        super().__init__(name, email, address, phone)
+    def __init__(self, name):
+        self.name = name
         self.balance = 0
         self.type = "Admin"
         self.activity_log = []
 
-    def create_account(self, user, initail_deposit):
-        return super().create_account(user, initail_deposit)
+    def create_account(self, bank, email, phone, address):
+        return super().create_account(bank, email, phone, address)
+
 
     def total_available_balance(self):
         return super().get_balance

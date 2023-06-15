@@ -5,22 +5,44 @@ from User import User
 def main():
     print("Main is running\n")
 
-    brac_bank = Bank()
-    admin_1 = Admin("Muktadir", "muktadir@hotmail.com", "Rajshahi", 583274)
-    brac_bank.create_account(admin_1)
-    brac_bank.account_details(admin_1)
+    brac_bank = Bank("BRAC BANK")
+    # ab_bank = Bank("AB BANK")
 
-    user_1 = User("Saiful", "saiful@xyz.com", "Dhaka", 9238)
-    brac_bank.create_account(user_1)
+    # admin_1 = Admin("Muktadir")
+    # admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
+    # brac_bank.account_details(admin_1)
+
+
+    user_1 = User("Saiful")
+    user_1.create_account(brac_bank, "saiful@yahoo.com", 1923452, "Dhaka")
+    user_1.deposit(brac_bank, 50)
     brac_bank.account_details(user_1)
 
-    user_2 = User("Rajoni", "rajoni@yahoo.com", "Rangpur", 23245)
-    brac_bank.create_account(user_2)
-    brac_bank.account_details(user_2)
 
+    user_2 = User("Rajoni")
+    user_2.create_account(brac_bank, "rajoni@outlook.com", 15236542, "Dhaka")
+    user_2.check_balance()
+    user_2.deposit(brac_bank, 10)
+    user_2.check_balance()
+    user_2.withdraw(brac_bank, 5)
+    user_2.check_balance()
+
+    user_2.transaction_history()
+
+
+    # user_2.transfer_balance(ab_bank, user_1, 30)
 
 
     
+    print(f'Bank Balance : {brac_bank.get_balance}')
+
+
+
+
+
+
+
+
 
 
 
