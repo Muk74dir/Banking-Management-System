@@ -14,10 +14,10 @@ class User:
         self.address = address
 
         if self.type == "User":
-            print("######----User Account Created---#####\n")
+            print(f"######----User Account Created in {bank.name}---#####\n")
             bank.users[self.name] = self
         else:
-            print("######----Admin Account Created---#####\n")
+            print(f"######----Admin Account Created in {bank.name}---#####\n")
             bank.admins[self.name] = self
         bank.activity_log[self.name] = [f'{self.type} : {self.name} Account Created at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}']
 
@@ -39,7 +39,7 @@ class User:
                     bank.activity_log[self.name].append(f'{self.name} Debited BDT -{amount} from {bank.name} at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}')
                     print(f"Withdraw Successful. Amount : {amount} BDT")
                 else:
-                    print(f'Sorry. The {bank.name} is bankrupt...!!!')
+                    print(f'\nSorry. The {bank.name} is bankrupt...!!!\n')
             else:
                 print("Not Enough Money Available to Withdraw.")
         else:
@@ -83,6 +83,13 @@ class User:
 
 
     def transaction_history(self, bank):
-        for activity in bank.activity_log[self.name]:
-            print(activity)
+        if self.name in bank.users:
+            print(f"\n####_____-Transaction_History-_____####")
+            print(f"####_____-{bank.name}-_____####")
+            print(f"####_____-{self.type}: {self.name} -_____####")
+            for activity in bank.activity_log[self.name]:
+                print(activity)
+            print("\n")
+        else:
+            print(f'{self.type} Not Found in {bank.name}')
 

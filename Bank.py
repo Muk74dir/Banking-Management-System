@@ -41,14 +41,21 @@ class Bank:
         self.__loan_switch = switch
 
     def account_details(self, user):
-        print("<----------Account Details-------->")
-        print(f'Account Name : {user.name}')
-        print(f'Account Type : {user.type}')
-        print(f'{user.type} Phone Number : {user.phone}')
-        print(f'{user.type} Email : {user.email}')
-        print(f'{user.type} Address : {user.address}')
-        print(f'{user.type} Balance : {user.balance}')
-        print(f'{user.type} Loan Amount {user.loan}\n\n')
+        if user.name in self.users or user.name in self.admins:
+            print("\n<----------Account Details-------->")
+            print(f'Account Name : {user.name}')
+            print(f'Account Type : {user.type}')
+            print(f'Bank Name : {self.name}')
+            print(f'{user.type} Phone Number : {user.phone}')
+            print(f'{user.type} Email : {user.email}')
+            print(f'{user.type} Address : {user.address}')
+            print(f'{user.type} Balance : {user.balance}')
+            print(f'{user.type} Loan Amount {user.loan}\n\n')
+        else:
+            if user.type != "Admin":
+                print(f'No Account found for user : {user.name} in {self.name}')
+            else:
+                print(f'No Admin Found named {user.name} in {self.name}')
 
         
 

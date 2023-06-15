@@ -4,6 +4,7 @@ from User import User
 class Admin(User):
     def __init__(self, name):
         self.name = name
+        self.loan = 0
         self.balance = 0
         self.type = "Admin"
 
