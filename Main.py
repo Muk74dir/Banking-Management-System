@@ -10,39 +10,57 @@ def main():
 
     admin_1 = Admin("Muktadir")
     admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
-    brac_bank.account_details(admin_1)
-
-    admin_1.total_available_balance(brac_bank)
-    admin_1.total_available_balance(ab_bank)
-    
-    admin_1.total_loan_amount(brac_bank)
-    admin_1.total_loan_amount(ab_bank)
 
 
     user_1 = User("Saiful")
     user_1.create_account(brac_bank, "saiful@yahoo.com", 1923452, "Dhaka")
-    user_1.deposit(brac_bank, 50)
+    user_1.deposit(brac_bank, 5)
     brac_bank.account_details(user_1)
 
 
     user_2 = User("Rajoni")
     user_2.create_account(brac_bank, "rajoni@outlook.com", 15236542, "Dhaka")
-    user_2.deposit(brac_bank, 10)
+    user_2.deposit(brac_bank, 5)
+
     user_2.check_balance(brac_bank)
+    user_2.check_balance(brac_bank)
+
+    user_2.withdraw(ab_bank, 5)
     user_2.withdraw(brac_bank, 5)
-    user_2.transaction_history()
+
+
+    user_2.transaction_history(brac_bank)
     user_2.transfer_balance(brac_bank, user_1, 1)
 
+    admin_1.switch_loan_feature(brac_bank, False)
+    user_1.take_loan(brac_bank, 5000)
+
+    admin_1.switch_loan_feature(brac_bank, True)
+
+    user_1.take_loan(brac_bank, 10)
+    user_1.check_balance(brac_bank)
+    user_2.check_balance(brac_bank)
+
+    brac_bank.account_details(user_1)
+    brac_bank.account_details(user_2)
+
+    admin_1.total_available_balance(brac_bank)
+    admin_1.total_loan_amount(brac_bank)
 
 
+    user_2.withdraw(brac_bank, 5)
+    user_2.transfer_balance(brac_bank, user_1, 1)
+    user_1.withdraw(brac_bank, 5)
+    user_1.deposit(brac_bank, 20)
+    user_1.withdraw(brac_bank, 5)
 
+    admin_1.total_available_balance(brac_bank)
+    admin_1.total_loan_amount(brac_bank)
 
-
-
-
-
-
-
+    user_1.transaction_history(brac_bank)
+    user_2.transaction_history(brac_bank)
+    admin_1.transaction_history(brac_bank)
+    
 
 
 

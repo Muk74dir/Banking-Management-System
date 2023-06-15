@@ -16,9 +16,10 @@ def main():
     admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
     admin_1.total_available_balance(brac_bank)
     admin_1.total_available_balance(ab_bank)
-
     admin_1.total_loan_amount(brac_bank)
     admin_1.total_loan_amount(ab_bank)
+
+    user_1.transaction_history(brac_bank)
     
 
 

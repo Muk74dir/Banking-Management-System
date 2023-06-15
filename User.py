@@ -3,9 +3,9 @@ from Bank import Bank
 
 class User:
     def __init__(self, name) -> None:
-        self.name = name 
+        self.name = name
         self.balance = 0
-        self.activity_log = []
+        self.loan = 0
         self.type = "User"
 
     def create_account(self, bank, email, phone, address):
@@ -19,36 +19,61 @@ class User:
         else:
             print("######----Admin Account Created---#####\n")
             bank.admins[self.name] = self
-        self.activity_log.append(f'Account Created at {dt.now()}')
+        bank.activity_log[self.name] = [f'{self.type} : {self.name} Account Created at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}']
 
     def deposit(self, bank, amount):
-        self.balance += amount
-        self.activity_log.append(f'Credited +{amount} in {bank.name} at {dt.now()}')
-        bank.get_balance += amount
+        if self.name in bank.users:
+            self.balance += amount
+            bank.activity_log[self.name].append(f'{self.name} Credited BDT +{amount} in {bank.name} at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}')
+            bank.get_balance += amount
+            print(f"Deposit Successful in {bank.name}. Amount : {amount} BDT")
+        else:
+            print(f"No Account found of {self.name} in {bank.name}")
         
     def withdraw(self, bank, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            bank.get_balance -= amount
-            self.activity_log.append(f'Debited -{amount} from {bank.name} at {dt.now()}')
-            print("Withdraw Successful.")
+        if self.name in bank.users:
+            if  self.balance >= amount:
+                if bank.get_balance >= amount:
+                    self.balance -= amount
+                    bank.get_balance -= amount
+                    bank.activity_log[self.name].append(f'{self.name} Debited BDT -{amount} from {bank.name} at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}')
+                    print(f"Withdraw Successful. Amount : {amount} BDT")
+                else:
+                    print(f'Sorry. The {bank.name} is bankrupt...!!!')
+            else:
+                print("Not Enough Money Available to Withdraw.")
         else:
-            print("Not Enough Money Available to Withdraw.")
-            
+            print(f"No Account found of {self.name} in {bank.name}")
 
     def check_balance(self, bank):
         if self.name in bank.users:
-            print(bank.users[self.name].balance)
+            print(f'User: {self.name} Balance : {self.balance} in {bank.name}')
         else:
             print(f"No Account Found for user : {self.name} in {bank.name}")
         
+
+    def take_loan(self, bank, amount):
+        if self.name in bank.users:
+            if bank.is_loan_enabled == True:
+                if bank.users[self.name].balance*2 >= (self.loan + amount):
+                    self.loan += amount
+                    bank.get_balance -= amount
+                    bank.get_loan_balance += amount
+                    print(f"User: {self.name} has got {amount} BDT Loan from {bank.name}")
+                    bank.activity_log[self.name].append(f"{self.name} Took {amount} BDT Loan from {bank.name} at {dt.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                else:
+                    print(f"User: {self.name} is not eligible to take loan now")
+            else:
+                print(f'Loan Facility is OFF in {bank.name}')
+        else:
+            print(f"No Account Found for user : {self.name} in {bank.name}")
 
     def transfer_balance(self, bank, to_user, amount):
         if (self.name in bank.users) and (to_user.name in bank.users):
             if self.balance >= amount:
                 self.balance -= amount
                 to_user.balance += amount
-                self.activity_log.append(f'{amount}BDT Transfered from {self.name} to {to_user.name} at {dt.now()}')
+                bank.activity_log[self.name].append(f'{amount}BDT Transfered from {self.name} to {to_user.name} at {dt.now().strftime("%Y-%m-%d %H:%M:%S")}')
                 print(f"Transfer Successful from {self.name} to {to_user.name} by {bank.name}")
             else:
                 print("Not Enough Money Available to Transfer.")
@@ -57,6 +82,7 @@ class User:
             print('Reason : User has no account in this bank')
 
 
-    def transaction_history(self):
-        for activity in self.activity_log:
+    def transaction_history(self, bank):
+        for activity in bank.activity_log[self.name]:
             print(activity)
+
