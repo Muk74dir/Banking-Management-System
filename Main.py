@@ -6,11 +6,17 @@ def main():
     print("Main is running\n")
 
     brac_bank = Bank("BRAC BANK")
-    # ab_bank = Bank("AB BANK")
+    ab_bank = Bank("AB BANK")
 
-    # admin_1 = Admin("Muktadir")
-    # admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
-    # brac_bank.account_details(admin_1)
+    admin_1 = Admin("Muktadir")
+    admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
+    brac_bank.account_details(admin_1)
+
+    admin_1.total_available_balance(brac_bank)
+    admin_1.total_available_balance(ab_bank)
+    
+    admin_1.total_loan_amount(brac_bank)
+    admin_1.total_loan_amount(ab_bank)
 
 
     user_1 = User("Saiful")
@@ -21,20 +27,11 @@ def main():
 
     user_2 = User("Rajoni")
     user_2.create_account(brac_bank, "rajoni@outlook.com", 15236542, "Dhaka")
-    user_2.check_balance()
     user_2.deposit(brac_bank, 10)
-    user_2.check_balance()
+    user_2.check_balance(brac_bank)
     user_2.withdraw(brac_bank, 5)
-    user_2.check_balance()
-
     user_2.transaction_history()
-
-
-    # user_2.transfer_balance(ab_bank, user_1, 30)
-
-
-    
-    print(f'Bank Balance : {brac_bank.get_balance}')
+    user_2.transfer_balance(brac_bank, user_1, 1)
 
 
 

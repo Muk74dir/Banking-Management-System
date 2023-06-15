@@ -5,8 +5,8 @@ class Bank:
         self.name = name
         self.__balance = 0
         self.__loan = 0
-        self.users = []
-        self.admins = []
+        self.users = {}
+        self.admins = {}
         self.loan_enabled = True
 
         print(f"##########---------->WELCOME TO {self.name}<---------#######\n\n\n")
@@ -22,8 +22,12 @@ class Bank:
     
 
     @property
-    def get_loan(self):
+    def get_loan_balance(self):
         return self.__loan
+    
+    @get_loan_balance.setter
+    def get_loan_balance(self, amount):
+        self.__loan = amount
 
 
     def is_loan_enabled(self):

@@ -15,10 +15,10 @@ class User:
 
         if self.type == "User":
             print("######----User Account Created---#####\n")
-            bank.users.append(self.name)
+            bank.users[self.name] = self
         else:
             print("######----Admin Account Created---#####\n")
-            bank.admins.append(self.name)
+            bank.admins[self.name] = self
         self.activity_log.append(f'Account Created at {dt.now()}')
 
     def deposit(self, bank, amount):
@@ -36,8 +36,12 @@ class User:
             print("Not Enough Money Available to Withdraw.")
             
 
-    def check_balance(self):
-        print(f'Your Balance is : {self.balance}')
+    def check_balance(self, bank):
+        if self.name in bank.users:
+            print(bank.users[self.name].balance)
+        else:
+            print(f"No Account Found for user : {self.name} in {bank.name}")
+        
 
     def transfer_balance(self, bank, to_user, amount):
         if (self.name in bank.users) and (to_user.name in bank.users):
@@ -45,7 +49,7 @@ class User:
                 self.balance -= amount
                 to_user.balance += amount
                 self.activity_log.append(f'{amount}BDT Transfered from {self.name} to {to_user.name} at {dt.now()}')
-                print("Transfer Successful.")
+                print(f"Transfer Successful from {self.name} to {to_user.name} by {bank.name}")
             else:
                 print("Not Enough Money Available to Transfer.")
         else:

@@ -1,8 +1,7 @@
 from datetime import datetime as dt
-from Bank import Bank
 from User import User
 
-class Admin(User, Bank):
+class Admin(User):
     def __init__(self, name):
         self.name = name
         self.balance = 0
@@ -13,11 +12,17 @@ class Admin(User, Bank):
         return super().create_account(bank, email, phone, address)
 
 
-    def total_available_balance(self):
-        return super().get_balance
+    def total_available_balance(self, bank):
+        if self.name in bank.admins:
+            print(bank.get_balance)
+        else:
+            print(f"Admin not Authorized to get access of {bank.name}")
     
-    def total_loan_amount(self):
-        return super().get_loan
+    def total_loan_amount(self, bank):
+        if self.name in bank.admins:
+            print(bank.get_loan_balance)
+        else:
+            print(f"Admin not Authorized to get access of {bank.name}")
     
     def switch_loan_feature(self, switch):
         if switch == True:

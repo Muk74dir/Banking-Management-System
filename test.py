@@ -2,18 +2,25 @@ from Bank import Bank
 from Admin import Admin
 from User import User
 
+def main():
 
-user_1 = User("Muktadir", "muktadir@gmail.com", "dhaka", 23923)
+    brac_bank = Bank("BRAC BANK")
+    ab_bank = Bank("AB BANK")
 
-user_1.create_account()
+    user_1 = User("Saiful")
+    user_1.create_account(brac_bank, "saiful@yahoo.com", 1923452, "Dhaka")
+    user_1.deposit(brac_bank, 50)
+    brac_bank.account_details(user_1)
 
-print(user_1.balance)
-user_1.deposit(20)
-print(user_1.balance)
+    admin_1 = Admin("Muktadir")
+    admin_1.create_account(brac_bank, "muktadir@gmail.com", 1719324, "Rajshahi")
+    admin_1.total_available_balance(brac_bank)
+    admin_1.total_available_balance(ab_bank)
 
-user_2 = User("Saiful", "saiful@gmail.com", "rajshahi", 2323)
+    admin_1.total_loan_amount(brac_bank)
+    admin_1.total_loan_amount(ab_bank)
+    
 
-user_1.transfer_balance(user_2, 20)
-print(user_2.balance)
-print(user_1.balance)
 
+if __name__ == "__main__":
+    main()
